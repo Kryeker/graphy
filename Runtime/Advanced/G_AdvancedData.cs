@@ -16,6 +16,9 @@ using UnityEngine.UI;
 
 #if GRAPHY_XR && !UNITY_TVOS && !UNITY_GAMECORE
 using UnityEngine.XR;
+#if !UNITY_2019_3_OR_NEWER
+using UnityEngine.Experimental.XR;
+#endif
 #endif
 
 using System.Collections.Generic;
@@ -133,10 +136,12 @@ namespace Tayx.Graphy.Advanced
 #endif
                     float refreshRate = -1;
 
-                    if( m_displaySubsystems.Count > 0 )
+#if UNITY_2019_3_OR_NEWER
+                    if(m_displaySubsystems.Count > 0 )
                     {
                         m_displaySubsystems[ 0 ].TryGetDisplayRefreshRate( out refreshRate );
                     }
+#endif
 
                     m_sb.Append( m_vrStrings[ 0 ] ).Append( XRSettings.eyeTextureWidth.ToStringNonAlloc() )
                         .Append( m_vrStrings[ 1 ] ).Append( XRSettings.eyeTextureHeight.ToStringNonAlloc() )
